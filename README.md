@@ -29,11 +29,11 @@ app/
 │  │  ├─ GreetingController.java
 │  │  ├─ adapter/web/controller/
 │  │  │  └─ BookController.java
-│  │  ├─ dtos/
+│  │  ├─ adapter/web/dtos/
 │  │  │  └─ BookDtos.java
 │  │  ├─ application/portout/repository/
 │  │  │  └─ BookRepository.java
-│  │  ├─ service/
+│  │  ├─ application/service/
 │  │  │  └─ BookService.java
 │  │  └─ domain/model/
 │  │     └─ Book.java
@@ -45,17 +45,15 @@ app/
 └─ README.md
 ```
 
-### Architecture (Hexagonal-lite)
-- **Domain model**: `book/domain/model/Book` — pure business entity.
-- **Ports (domain)**: `book/domain/port/out/BookRepositoryPort` — defines what persistence must provide.
-- **Adapters**:
-  - **Persistence**: `adapter/persistence/BookRepositoryAdapter` implements the port using `SpringDataBookRepository` (extends `JpaRepository<Book, Long>`).
-  - **Web**: `adapter/web/BookController` — HTTP API → delegates to application service.
-- **Application layer**: `application/service/BookService` — orchestrates use cases; depends only on ports.
-- **DTOs**: `application/dto/BookDtos` — request/response types with validation.
-- **Greeting feature**: kept isolated in `greeting/` for clarity.
+### Architecture (current)
+- **Web adapter**: `adapter/web/controller/BookController`
+- **DTOs (web layer)**: `adapter/web/dtos/BookDtos` (only used by controllers)
+- **Application layer**: `application/service/BookService` — business orchestration; **does not depend on web DTOs**
+- **Domain model**: `domain/model/Book`
+- **Port (outbound)**: `application/portout/repository/BookRepository` — domain-facing repository interface
+- **Greeting feature**: `GreetingController` at the root of `com.example.demo`
 
-> Folder names mirror packages. Avoid dot-named directories (e.g., `com.example.demo` as a single folder). Use nested folders like `com/example/demo` so IntelliJ and Java resolve packages correctly.
+> Keep DTOs in the web adapter to avoid leaking HTTP shapes into the service/domain. Map to/from domain in the controller.
 
 ---
 
@@ -211,5 +209,4 @@ docker run --rm -p 8080:8080 simple-java-spring-boot-project:0.0.1-SNAPSHOT
 
 ## License
 MIT (or your preferred license).
-
 
