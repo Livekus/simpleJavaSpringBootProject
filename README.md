@@ -24,36 +24,25 @@ A minimal, production-ready-ish REST API built with **Spring Boot 3.2.5** and **
 ```
 app/
 ├─ src/
-│  ├─ main/
-│  │  ├─ java/com/example/demo/
-│  │  │  ├─ DemoApplication.java
-│  │  │  ├─ greeting/
-│  │  │  │  └─ GreetingController.java
-│  │  │  └─ book/
-│  │  │     ├─ domain/
-│  │  │     │  ├─ model/
-│  │  │     │  │  └─ Book.java
-│  │  │     │  └─ port/
-│  │  │     │     └─ out/
-│  │  │     │        └─ BookRepositoryPort.java
-│  │  │     ├─ application/
-│  │  │     │  ├─ dto/
-│  │  │     │  │  └─ BookDtos.java
-│  │  │     │  └─ service/
-│  │  │     │     └─ BookService.java
-│  │  │     └─ adapter/
-│  │  │        ├─ web/
-│  │  │        │  └─ BookController.java
-│  │  │        └─ persistence/
-│  │  │           ├─ SpringDataBookRepository.java
-│  │  │           └─ BookRepositoryAdapter.java
-│  │  └─ resources/
-│  │     └─ application.properties
-│  └─ test/
-│     └─ java/com/example/demo/
-│        └─ book/adapter/web/
-│           └─ BookControllerTest.java
-└─ pom.xml
+│  ├─ main/java/com/example/demo/
+│  │  ├─ DemoApplication.java
+│  │  ├─ GreetingController.java
+│  │  ├─ adapter/web/controller/
+│  │  │  └─ BookController.java
+│  │  ├─ dtos/
+│  │  │  └─ BookDtos.java
+│  │  ├─ application/portout/repository/
+│  │  │  └─ BookRepository.java
+│  │  ├─ service/
+│  │  │  └─ BookService.java
+│  │  └─ domain/model/
+│  │     └─ Book.java
+│  └─ test/java/com/example/demo/
+│     ├─ adapter/web/controller/
+│     │  └─ BookControllerTest.java
+│     └─ GreetingControllerTest.java
+├─ pom.xml
+└─ README.md
 ```
 
 ### Architecture (Hexagonal-lite)
@@ -222,4 +211,5 @@ docker run --rm -p 8080:8080 simple-java-spring-boot-project:0.0.1-SNAPSHOT
 
 ## License
 MIT (or your preferred license).
+
 
